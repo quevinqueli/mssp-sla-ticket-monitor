@@ -22,6 +22,15 @@ from mssp_sla.timeutil import iso
 from mssp_sla.verify import verify_report
 
 
+def display_source_path(csv_path: str | Path) -> str:
+    """Prefer a cwd-relative path so committed artifacts are portable."""
+    source = Path(csv_path)
+    try:
+        return str(source.resolve().relative_to(Path.cwd().resolve()))
+    except ValueError:
+        return str(csv_path)
+
+
 def build_report(
     csv_path: str | Path,
     as_of: datetime,
@@ -43,7 +52,7 @@ def build_report(
 
     report = MetricsReport(
         as_of=iso(as_of) or "",
-        source_csv=str(csv_path),
+        source_csv=display_source_path(csv_path),
         sla_catalog_version=SLA_CATALOG_VERSION,
         row_count=len(tickets),
         eligible_for_sla=sum(1 for ticket in tickets if ticket.sla_eligible),

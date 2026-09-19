@@ -8,7 +8,8 @@ from mssp_sla.models import Finding, MetricsReport
 def _fmt_hours(value: float | None) -> str:
     if value is None:
         return "n/a"
-    return f"{value:.4f}h".replace(".0000h", ".0h")
+    text = f"{value:.4f}".rstrip("0").rstrip(".")
+    return f"{text}h"
 
 
 def _finding_block(finding: Finding) -> list[str]:

@@ -79,14 +79,13 @@ def test_approaching_uses_warn_band_not_entire_window():
     assert approaching[0].finding_type == "approaching_response"
     assert approaching[0].hours_remaining == 0.25
 
-    # Same priority created 10:30: 30 minutes remain — exactly the band edge (included).
-    edge = _ticket(created_at="2026-09-19T10:30:00Z", priority="P2")
+    # Created 11:30: 30 minutes remain — exactly the 50% warn-band edge (included).
+    edge = _ticket(created_at="2026-09-19T11:30:00Z", priority="P2")
     edge_findings = compute_approaching_deadlines([edge], AS_OF)
     assert [item.hours_remaining for item in edge_findings] == [0.5]
 
-    # Created 10:00: remaining 0 after... wait remaining 1.0h == full window, not approaching.
+    # Created 11:00: remaining 1.0h (full P2 response window) is outside the warn band.
     early = _ticket(created_at="2026-09-19T11:00:00Z", priority="P2")
-    # remaining 1.0h, threshold 0.5h
     assert compute_approaching_deadlines([early], AS_OF) == []
 
 
