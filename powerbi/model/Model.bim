@@ -1,0 +1,841 @@
+{
+  "name": "MSSP_SLA_Attention",
+  "compatibilityLevel": 1550,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "tables": [
+      {
+        "name": "fact_ticket",
+        "columns": [
+          {
+            "name": "ticket_row_key",
+            "dataType": "string",
+            "sourceColumn": "ticket_row_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "snapshot_id",
+            "dataType": "string",
+            "sourceColumn": "snapshot_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "row_number",
+            "dataType": "int64",
+            "sourceColumn": "row_number",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ticket_id",
+            "dataType": "string",
+            "sourceColumn": "ticket_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "client_key",
+            "dataType": "string",
+            "sourceColumn": "client_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "priority_key",
+            "dataType": "string",
+            "sourceColumn": "priority_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "priority_raw",
+            "dataType": "string",
+            "sourceColumn": "priority_raw",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "priority_display",
+            "dataType": "string",
+            "sourceColumn": "priority_display",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_key",
+            "dataType": "string",
+            "sourceColumn": "status_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_raw",
+            "dataType": "string",
+            "sourceColumn": "status_raw",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_display",
+            "dataType": "string",
+            "sourceColumn": "status_display",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_group",
+            "dataType": "string",
+            "sourceColumn": "status_group",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "assigned_to",
+            "dataType": "string",
+            "sourceColumn": "assigned_to",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ticket_type",
+            "dataType": "string",
+            "sourceColumn": "ticket_type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "category",
+            "dataType": "string",
+            "sourceColumn": "category",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "summary",
+            "dataType": "string",
+            "sourceColumn": "summary",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "created_at",
+            "dataType": "string",
+            "sourceColumn": "created_at",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "first_response_at",
+            "dataType": "string",
+            "sourceColumn": "first_response_at",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolved_at",
+            "dataType": "string",
+            "sourceColumn": "resolved_at",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_updated_at",
+            "dataType": "string",
+            "sourceColumn": "status_updated_at",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "sla_eligible",
+            "dataType": "int64",
+            "sourceColumn": "sla_eligible",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "response_sla_eligible",
+            "dataType": "int64",
+            "sourceColumn": "response_sla_eligible",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolve_sla_eligible",
+            "dataType": "int64",
+            "sourceColumn": "resolve_sla_eligible",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_open",
+            "dataType": "int64",
+            "sourceColumn": "is_open",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_closed",
+            "dataType": "int64",
+            "sourceColumn": "is_closed",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "age_hours",
+            "dataType": "string",
+            "sourceColumn": "age_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "waiting_hours",
+            "dataType": "string",
+            "sourceColumn": "waiting_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "response_deadline",
+            "dataType": "string",
+            "sourceColumn": "response_deadline",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "response_elapsed_hours",
+            "dataType": "string",
+            "sourceColumn": "response_elapsed_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "response_remaining_hours",
+            "dataType": "string",
+            "sourceColumn": "response_remaining_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "response_overdue_hours",
+            "dataType": "string",
+            "sourceColumn": "response_overdue_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "response_breached",
+            "dataType": "int64",
+            "sourceColumn": "response_breached",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolve_deadline",
+            "dataType": "string",
+            "sourceColumn": "resolve_deadline",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolve_elapsed_hours",
+            "dataType": "string",
+            "sourceColumn": "resolve_elapsed_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolve_remaining_hours",
+            "dataType": "string",
+            "sourceColumn": "resolve_remaining_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolve_overdue_hours",
+            "dataType": "string",
+            "sourceColumn": "resolve_overdue_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolve_breached",
+            "dataType": "int64",
+            "sourceColumn": "resolve_breached",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "has_any_breach",
+            "dataType": "int64",
+            "sourceColumn": "has_any_breach",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "has_approaching",
+            "dataType": "int64",
+            "sourceColumn": "has_approaching",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "approaching_response",
+            "dataType": "int64",
+            "sourceColumn": "approaching_response",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "approaching_resolve",
+            "dataType": "int64",
+            "sourceColumn": "approaching_resolve",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_ageing",
+            "dataType": "int64",
+            "sourceColumn": "is_ageing",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_waiting_attention",
+            "dataType": "int64",
+            "sourceColumn": "is_waiting_attention",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_unassigned",
+            "dataType": "int64",
+            "sourceColumn": "is_unassigned",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_dq_blocking_sla",
+            "dataType": "int64",
+            "sourceColumn": "is_dq_blocking_sla",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_python_attention",
+            "dataType": "int64",
+            "sourceColumn": "is_python_attention",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "python_reason_rule_ids",
+            "dataType": "string",
+            "sourceColumn": "python_reason_rule_ids",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "dq_rule_ids",
+            "dataType": "string",
+            "sourceColumn": "dq_rule_ids",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "kpi_open",
+            "dataType": "int64",
+            "sourceColumn": "kpi_open",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "kpi_breached",
+            "dataType": "int64",
+            "sourceColumn": "kpi_breached",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "kpi_approaching",
+            "dataType": "int64",
+            "sourceColumn": "kpi_approaching",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "kpi_ageing",
+            "dataType": "int64",
+            "sourceColumn": "kpi_ageing",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "kpi_ageing_python",
+            "dataType": "int64",
+            "sourceColumn": "kpi_ageing_python",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "exclusive_kpi_bucket",
+            "dataType": "string",
+            "sourceColumn": "exclusive_kpi_bucket",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "in_action_table",
+            "dataType": "int64",
+            "sourceColumn": "in_action_table",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "primary_reason_key",
+            "dataType": "string",
+            "sourceColumn": "primary_reason_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "primary_reason_label",
+            "dataType": "string",
+            "sourceColumn": "primary_reason_label",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "reason_sort",
+            "dataType": "int64",
+            "sourceColumn": "reason_sort",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "deadline",
+            "dataType": "string",
+            "sourceColumn": "deadline",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "overdue_hours",
+            "dataType": "string",
+            "sourceColumn": "overdue_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "remaining_hours",
+            "dataType": "string",
+            "sourceColumn": "remaining_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "primary_clock_kind",
+            "dataType": "string",
+            "sourceColumn": "primary_clock_kind",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "why_for_attention",
+            "dataType": "string",
+            "sourceColumn": "why_for_attention",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "data_disclaimer",
+            "dataType": "string",
+            "sourceColumn": "data_disclaimer",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": [
+          {
+            "name": "Open tickets",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_open] = 1 )",
+            "formatString": "#,0",
+            "displayFolder": "KPIs",
+            "description": "Open volume at row grain. Matches Python counts.open_tickets (open/in_progress/waiting_customer/pending/investigating). Not exclusive versus the other KPI cards."
+          },
+          {
+            "name": "Breached tickets",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_breached] = 1 )",
+            "formatString": "#,0",
+            "displayFolder": "KPIs",
+            "description": "Unique ticket rows with \u22651 SLA clock breach. Excludes double-counting response+resolve on the same row. Includes closed historical breaches."
+          },
+          {
+            "name": "Approaching tickets",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_approaching] = 1 )",
+            "formatString": "#,0",
+            "displayFolder": "KPIs",
+            "description": "Still-ticking, not-yet-breached clocks inside the warn band. Mutually exclusive versus breached (Python already excludes breached clocks; the flag also excludes any row that has a different-clock breach)."
+          },
+          {
+            "name": "Ageing backlog",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing] = 1 )",
+            "formatString": "#,0",
+            "displayFolder": "KPIs",
+            "description": "Open rows aged \u226548h that are not already in the breached or approaching KPIs. Intentional delta versus Python ageing_backlog (TCK-1004 is counted only as breached)."
+          },
+          {
+            "name": "Breached findings (Python-aligned)",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_finding' ), 'fact_finding'[finding_type] IN { \"response_sla_breach\", \"resolve_sla_breach\" } )",
+            "formatString": "#,0",
+            "displayFolder": "Python-aligned",
+            "description": "List length of Phase A breached_slas (8 on the demo snapshot)."
+          },
+          {
+            "name": "Approaching findings (Python-aligned)",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_finding' ), 'fact_finding'[finding_type] IN { \"approaching_response\", \"approaching_resolve\" } )",
+            "formatString": "#,0",
+            "displayFolder": "Python-aligned",
+            "description": "List length of Phase A approaching_deadlines."
+          },
+          {
+            "name": "Ageing backlog (Python-aligned)",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing_python] = 1 )",
+            "formatString": "#,0",
+            "displayFolder": "Python-aligned",
+            "description": "Open age \u226548h with no exclusion. Matches Python counts.ageing_backlog."
+          },
+          {
+            "name": "Attention tickets (Python-aligned)",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[is_python_attention] = 1 )",
+            "formatString": "#,0",
+            "displayFolder": "Python-aligned",
+            "description": "Rows that appear on Phase A attention_list. Ageing-only and P3/P4 approaching tickets can be on the report table without this flag."
+          },
+          {
+            "name": "Actionable tickets",
+            "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[in_action_table] = 1 )",
+            "formatString": "#,0",
+            "displayFolder": "Table",
+            "description": "Rows with a primary reason (KPI buckets plus remaining Python attention rules)."
+          },
+          {
+            "name": "Snapshot timestamp",
+            "expression": "SELECTEDVALUE ( 'dim_snapshot'[as_of_label], BLANK () )",
+            "formatString": "@",
+            "displayFolder": "Header",
+            "description": "Visible as-of label for the frozen demo snapshot."
+          },
+          {
+            "name": "Synthetic demonstration data",
+            "expression": "SELECTEDVALUE ( 'dim_snapshot'[data_disclaimer], \"Synthetic demonstration data\" )",
+            "formatString": "@",
+            "displayFolder": "Header",
+            "description": "Classification banner. Demo tickets are synthetic."
+          }
+        ]
+      },
+      {
+        "name": "fact_finding",
+        "columns": [
+          {
+            "name": "evidence_id",
+            "dataType": "string",
+            "sourceColumn": "evidence_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "snapshot_id",
+            "dataType": "string",
+            "sourceColumn": "snapshot_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ticket_row_key",
+            "dataType": "string",
+            "sourceColumn": "ticket_row_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ticket_id",
+            "dataType": "string",
+            "sourceColumn": "ticket_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "finding_type",
+            "dataType": "string",
+            "sourceColumn": "finding_type",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "rule_id",
+            "dataType": "string",
+            "sourceColumn": "rule_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "client_key",
+            "dataType": "string",
+            "sourceColumn": "client_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "priority_key",
+            "dataType": "string",
+            "sourceColumn": "priority_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_key",
+            "dataType": "string",
+            "sourceColumn": "status_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "computed_deadline",
+            "dataType": "string",
+            "sourceColumn": "computed_deadline",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "hours_overdue",
+            "dataType": "string",
+            "sourceColumn": "hours_overdue",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "hours_remaining",
+            "dataType": "string",
+            "sourceColumn": "hours_remaining",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "clock_elapsed_hours",
+            "dataType": "string",
+            "sourceColumn": "clock_elapsed_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "why_it_qualifies",
+            "dataType": "string",
+            "sourceColumn": "why_it_qualifies",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "reason_rule_ids",
+            "dataType": "string",
+            "sourceColumn": "reason_rule_ids",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "as_of_utc",
+            "dataType": "string",
+            "sourceColumn": "as_of_utc",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": []
+      },
+      {
+        "name": "dim_client",
+        "columns": [
+          {
+            "name": "client_key",
+            "dataType": "string",
+            "sourceColumn": "client_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "client_id",
+            "dataType": "string",
+            "sourceColumn": "client_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "client_label",
+            "dataType": "string",
+            "sourceColumn": "client_label",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": []
+      },
+      {
+        "name": "dim_priority",
+        "columns": [
+          {
+            "name": "priority_key",
+            "dataType": "string",
+            "sourceColumn": "priority_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "priority_label",
+            "dataType": "string",
+            "sourceColumn": "priority_label",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "priority_sort",
+            "dataType": "int64",
+            "sourceColumn": "priority_sort",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "response_hours",
+            "dataType": "string",
+            "sourceColumn": "response_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "resolve_hours",
+            "dataType": "string",
+            "sourceColumn": "resolve_hours",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "aliases",
+            "dataType": "string",
+            "sourceColumn": "aliases",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "in_catalog",
+            "dataType": "int64",
+            "sourceColumn": "in_catalog",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": []
+      },
+      {
+        "name": "dim_status",
+        "columns": [
+          {
+            "name": "status_key",
+            "dataType": "string",
+            "sourceColumn": "status_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_label",
+            "dataType": "string",
+            "sourceColumn": "status_label",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_group",
+            "dataType": "string",
+            "sourceColumn": "status_group",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_open_status",
+            "dataType": "int64",
+            "sourceColumn": "is_open_status",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_closed_status",
+            "dataType": "int64",
+            "sourceColumn": "is_closed_status",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": []
+      },
+      {
+        "name": "dim_attention_reason",
+        "columns": [
+          {
+            "name": "reason_key",
+            "dataType": "string",
+            "sourceColumn": "reason_key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "reason_label",
+            "dataType": "string",
+            "sourceColumn": "reason_label",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "reason_sort",
+            "dataType": "int64",
+            "sourceColumn": "reason_sort",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "status_color",
+            "dataType": "string",
+            "sourceColumn": "status_color",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "is_kpi_bucket",
+            "dataType": "int64",
+            "sourceColumn": "is_kpi_bucket",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": []
+      },
+      {
+        "name": "dim_snapshot",
+        "columns": [
+          {
+            "name": "snapshot_id",
+            "dataType": "string",
+            "sourceColumn": "snapshot_id",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "as_of_utc",
+            "dataType": "string",
+            "sourceColumn": "as_of_utc",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "as_of_label",
+            "dataType": "string",
+            "sourceColumn": "as_of_label",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "data_disclaimer",
+            "dataType": "string",
+            "sourceColumn": "data_disclaimer",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "sla_catalog_version",
+            "dataType": "string",
+            "sourceColumn": "sla_catalog_version",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "source_csv",
+            "dataType": "string",
+            "sourceColumn": "source_csv",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "row_count",
+            "dataType": "int64",
+            "sourceColumn": "row_count",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "notes",
+            "dataType": "string",
+            "sourceColumn": "notes",
+            "summarizeBy": "none"
+          }
+        ],
+        "measures": []
+      }
+    ],
+    "relationships": [
+      {
+        "name": "fact_ticket_to_client",
+        "fromTable": "fact_ticket",
+        "fromColumn": "client_key",
+        "toTable": "dim_client",
+        "toColumn": "client_key",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_ticket_to_priority",
+        "fromTable": "fact_ticket",
+        "fromColumn": "priority_key",
+        "toTable": "dim_priority",
+        "toColumn": "priority_key",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_ticket_to_status",
+        "fromTable": "fact_ticket",
+        "fromColumn": "status_key",
+        "toTable": "dim_status",
+        "toColumn": "status_key",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_ticket_to_reason",
+        "fromTable": "fact_ticket",
+        "fromColumn": "primary_reason_key",
+        "toTable": "dim_attention_reason",
+        "toColumn": "reason_key",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_ticket_to_snapshot",
+        "fromTable": "fact_ticket",
+        "fromColumn": "snapshot_id",
+        "toTable": "dim_snapshot",
+        "toColumn": "snapshot_id",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "fact_finding_to_ticket",
+        "fromTable": "fact_finding",
+        "fromColumn": "ticket_row_key",
+        "toTable": "fact_ticket",
+        "toColumn": "ticket_row_key",
+        "crossFilteringBehavior": "oneDirection"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"fact_ticket\", \"fact_finding\", \"dim_client\", \"dim_priority\", \"dim_status\", \"dim_attention_reason\", \"dim_snapshot\"]"
+      },
+      {
+        "name": "MSSP_Note",
+        "value": "Logical model only. Import powerbi/data/*.csv in Desktop; this file was not opened in Power BI Desktop."
+      }
+    ]
+  }
+}

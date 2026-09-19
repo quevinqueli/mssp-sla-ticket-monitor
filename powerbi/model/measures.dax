@@ -1,0 +1,36 @@
+// MSSP SLA attention measures
+// Paste each block as a new measure on fact_ticket (or the model).
+// Flags are precomputed by mssp_sla.powerbi_export to match Phase A clocks.
+
+// KPIs: Open volume at row grain. Matches Python counts.open_tickets (open/in_progress/waiting_customer/pending/investigating). Not exclusive versus the other KPI cards.
+Open tickets = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_open] = 1 )
+
+// KPIs: Unique ticket rows with ≥1 SLA clock breach. Excludes double-counting response+resolve on the same row. Includes closed historical breaches.
+Breached tickets = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_breached] = 1 )
+
+// KPIs: Still-ticking, not-yet-breached clocks inside the warn band. Mutually exclusive versus breached (Python already excludes breached clocks; the flag also excludes any row that has a different-clock breach).
+Approaching tickets = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_approaching] = 1 )
+
+// KPIs: Open rows aged ≥48h that are not already in the breached or approaching KPIs. Intentional delta versus Python ageing_backlog (TCK-1004 is counted only as breached).
+Ageing backlog = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing] = 1 )
+
+// Python-aligned: List length of Phase A breached_slas (8 on the demo snapshot).
+Breached findings (Python-aligned) = CALCULATE ( COUNTROWS ( 'fact_finding' ), 'fact_finding'[finding_type] IN { "response_sla_breach", "resolve_sla_breach" } )
+
+// Python-aligned: List length of Phase A approaching_deadlines.
+Approaching findings (Python-aligned) = CALCULATE ( COUNTROWS ( 'fact_finding' ), 'fact_finding'[finding_type] IN { "approaching_response", "approaching_resolve" } )
+
+// Python-aligned: Open age ≥48h with no exclusion. Matches Python counts.ageing_backlog.
+Ageing backlog (Python-aligned) = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing_python] = 1 )
+
+// Python-aligned: Rows that appear on Phase A attention_list. Ageing-only and P3/P4 approaching tickets can be on the report table without this flag.
+Attention tickets (Python-aligned) = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[is_python_attention] = 1 )
+
+// Table: Rows with a primary reason (KPI buckets plus remaining Python attention rules).
+Actionable tickets = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[in_action_table] = 1 )
+
+// Header: Visible as-of label for the frozen demo snapshot.
+Snapshot timestamp = SELECTEDVALUE ( 'dim_snapshot'[as_of_label], BLANK () )
+
+// Header: Classification banner. Demo tickets are synthetic.
+Synthetic demonstration data = SELECTEDVALUE ( 'dim_snapshot'[data_disclaimer], "Synthetic demonstration data" )

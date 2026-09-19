@@ -1,0 +1,185 @@
+{
+  "page": {
+    "name": "Attention",
+    "displayName": "Tickets needing attention",
+    "question": "Which tickets and clients need attention, and why?",
+    "width": 1280,
+    "height": 720,
+    "displayOption": "FitToPage",
+    "background": "#F8FAFC",
+    "notDesktopValidated": true,
+    "trends": "omitted — single as_of snapshot, not a daily history"
+  },
+  "spacing": {
+    "pageMargin": 24,
+    "gutter": 16,
+    "headerHeight": 56,
+    "slicerHeight": 72,
+    "kpiHeight": 100
+  },
+  "visuals": [
+    {
+      "id": "title",
+      "type": "textbox",
+      "x": 24,
+      "y": 12,
+      "width": 760,
+      "height": 32,
+      "text": "Which tickets and clients need attention, and why?",
+      "font": "Segoe UI Semibold 16pt #1D2939"
+    },
+    {
+      "id": "snapshot",
+      "type": "card",
+      "x": 24,
+      "y": 44,
+      "width": 360,
+      "height": 28,
+      "measure": "Snapshot timestamp",
+      "title": "As of",
+      "notes": "Use a card or text box. Must remain visible; do not hide in the filter pane."
+    },
+    {
+      "id": "synthetic_banner",
+      "type": "card",
+      "x": 880,
+      "y": 16,
+      "width": 376,
+      "height": 36,
+      "measure": "Synthetic demonstration data",
+      "format": {
+        "font": "Segoe UI Semibold 10pt #B54708",
+        "background": "#FFFAEB",
+        "border": "#FEDF89"
+      },
+      "notes": "Classification label. Keep on-canvas, not only in a tooltip."
+    },
+    {
+      "id": "slicer_client",
+      "type": "slicer",
+      "x": 24,
+      "y": 88,
+      "width": 400,
+      "height": 72,
+      "field": "dim_client[client_label]",
+      "style": "Dropdown",
+      "selectAll": true
+    },
+    {
+      "id": "slicer_priority",
+      "type": "slicer",
+      "x": 440,
+      "y": 88,
+      "width": 400,
+      "height": 72,
+      "field": "dim_priority[priority_label]",
+      "style": "Dropdown",
+      "sortBy": "dim_priority[priority_sort]"
+    },
+    {
+      "id": "slicer_status",
+      "type": "slicer",
+      "x": 856,
+      "y": 88,
+      "width": 400,
+      "height": 72,
+      "field": "dim_status[status_label]",
+      "style": "Dropdown"
+    },
+    {
+      "id": "kpi_open",
+      "type": "card",
+      "x": 24,
+      "y": 176,
+      "width": 296,
+      "height": 100,
+      "measure": "Open tickets",
+      "unfilteredDemoValue": 22,
+      "accent": "#344054",
+      "notes": "Neutral volume. Do not colour this card red."
+    },
+    {
+      "id": "kpi_breached",
+      "type": "card",
+      "x": 336,
+      "y": 176,
+      "width": 296,
+      "height": 100,
+      "measure": "Breached tickets",
+      "unfilteredDemoValue": 7,
+      "accent": "#B42318",
+      "calloutFontColor": "#B42318"
+    },
+    {
+      "id": "kpi_approaching",
+      "type": "card",
+      "x": 648,
+      "y": 176,
+      "width": 296,
+      "height": 100,
+      "measure": "Approaching tickets",
+      "unfilteredDemoValue": 3,
+      "accent": "#B54708",
+      "calloutFontColor": "#B54708"
+    },
+    {
+      "id": "kpi_ageing",
+      "type": "card",
+      "x": 960,
+      "y": 176,
+      "width": 296,
+      "height": 100,
+      "measure": "Ageing backlog",
+      "unfilteredDemoValue": 2,
+      "accent": "#175CD3",
+      "calloutFontColor": "#175CD3"
+    },
+    {
+      "id": "bar_breached_by_client",
+      "type": "clusteredBarChart",
+      "x": 24,
+      "y": 292,
+      "width": 1232,
+      "height": 168,
+      "axis": "dim_client[client_label]",
+      "values": "Breached tickets",
+      "dataColor": "#B42318",
+      "title": "Breached tickets by client",
+      "unfilteredDemoValues": { "CUST-A": 4, "CUST-C": 3 },
+      "notes": "One colour (breached). Do not assign a distinct colour per client."
+    },
+    {
+      "id": "table_actionable",
+      "type": "table",
+      "x": 24,
+      "y": 476,
+      "width": 1232,
+      "height": 220,
+      "visualFilter": "fact_ticket[in_action_table] = 1",
+      "columns": [
+        "fact_ticket[ticket_id]",
+        "dim_client[client_label]",
+        "fact_ticket[priority_display]",
+        "fact_ticket[status_display]",
+        "fact_ticket[deadline]",
+        "fact_ticket[overdue_hours]",
+        "fact_ticket[remaining_hours]",
+        "fact_ticket[primary_reason_label]",
+        "fact_ticket[why_for_attention]"
+      ],
+      "sort": [
+        { "field": "fact_ticket[reason_sort]", "direction": "Ascending" },
+        { "field": "fact_ticket[overdue_hours]", "direction": "Descending" }
+      ],
+      "unfilteredDemoRows": 20,
+      "conditionalFormatting": {
+        "field": "fact_ticket[primary_reason_label]",
+        "rules": [
+          { "contains": "SLA breached", "fontColor": "#B42318" },
+          { "equals": "Approaching deadline", "fontColor": "#B54708" },
+          { "equals": "Ageing backlog", "fontColor": "#175CD3" }
+        ]
+      }
+    }
+  ]
+}

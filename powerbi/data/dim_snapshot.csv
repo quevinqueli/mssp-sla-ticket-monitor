@@ -1,0 +1,2 @@
+snapshot_id,as_of_utc,as_of_label,data_disclaimer,sla_catalog_version,source_csv,row_count,notes
+demo-2026-09-19T12-00-00Z,2026-09-19T12:00:00+00:00,19 Sep 2026 12:00 UTC,Synthetic demonstration data,v1,data/synthetic_tickets.csv,27,"Frozen demo snapshot. Trends are omitted: the source is a single as_of instant, not a history of daily snapshots."

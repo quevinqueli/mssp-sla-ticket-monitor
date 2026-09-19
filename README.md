@@ -90,14 +90,30 @@ Phase B (`--ai`) is opt-in:
 python3 -m mssp_sla --csv data/synthetic_tickets.csv --as-of 2026-09-19T12:00:00Z --out artifacts --ai
 ```
 
+## Power BI attention report
+
+Package in [`powerbi/`](powerbi/README.md): star-schema CSVs, DAX/TMDL measures, theme, page layout, and Desktop setup for a single page that answers **which tickets and clients need attention, and why?**
+
+The CSVs are generated from the same Phase A clocks as the daily brief:
+
+```bash
+python3 scripts/export_powerbi_star.py
+python3 scripts/reconcile_powerbi.py
+```
+
+Unfiltered demo KPIs at `2026-09-19T12:00:00Z` are documented in [`powerbi/RECONCILIATION.md`](powerbi/RECONCILIATION.md). There is **no** committed `.pbix`: this repo cannot run Power BI Desktop, so the page must be assembled locally using [`powerbi/DESKTOP_SETUP.md`](powerbi/DESKTOP_SETUP.md).
+
 ## Layout
 
 ```
-mssp_sla/          Phase A compute + verification + optional Phase B
-data/              Schema docs + synthetic demo CSV
-tests/             Unit tests + hand-checked fixtures
+mssp_sla/                 Phase A compute + verification + optional Phase B
+data/                     Schema docs + synthetic demo CSV
+tests/                    Unit tests + hand-checked fixtures
 scripts/run_demo.py
-artifacts/         Demo output (metrics JSON + markdown brief)
+scripts/export_powerbi_star.py
+scripts/reconcile_powerbi.py
+artifacts/                Demo output (metrics JSON + markdown brief)
+powerbi/                  Attention report package (CSV star schema, DAX, theme, setup)
 ```
 
 ## What this tool will not do
