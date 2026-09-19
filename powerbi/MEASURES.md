@@ -11,7 +11,7 @@ Clocks are **not** re-implemented in DAX. Reproducing parse eligibility, naive-t
 | **Open tickets** | `kpi_open = 1` | CSV row | 22 | `counts.open_tickets` (match) |
 | **Breached tickets** | `kpi_breached = 1` | CSV row with ≥1 clock breach | 7 | `counts.breached_slas` = 8 findings |
 | **Approaching tickets** | `kpi_approaching = 1` | CSV row | 3 | `counts.approaching_deadlines` (match) |
-| **Ageing backlog** | `kpi_ageing = 1` | CSV row, exclusive remainder | 2 | `counts.ageing_backlog` = 3 |
+| **Ageing backlog** | `kpi_ageing = 1` | CSV row, exclusive remainder | 1 | `counts.ageing_backlog` = 2 |
 
 ### Open tickets
 
@@ -37,9 +37,9 @@ Open and age ≥ 48h **and** not already counted as breached or approaching.
 | --- | --- | --- |
 | TCK-1004 | yes (also resolve-breached) | **no** — shown as breached |
 | TCK-1006 | yes | yes |
-| TCK-1020 (96h row) | yes | yes |
+| TCK-1020 (96h row) | **no** — duplicate `ticket_id` is DQ-only | **no** — `DATA_QUALITY` |
 
-Use **Ageing backlog (Python-aligned)** if you need the Phase A list length of 3.
+Use **Ageing backlog (Python-aligned)** if you need the Phase A list length of 2.
 
 ## Mutual exclusivity
 
@@ -67,7 +67,7 @@ If both clocks are breached, the table deadline and overdue hours use the **resp
 | --- | --- | ---: |
 | Breached findings (Python-aligned) | `fact_finding` rows whose type is `response_sla_breach` or `resolve_sla_breach` | 8 |
 | Approaching findings (Python-aligned) | `approaching_response` or `approaching_resolve` | 3 |
-| Ageing backlog (Python-aligned) | `kpi_ageing_python = 1` (no exclusivity) | 3 |
+| Ageing backlog (Python-aligned) | `kpi_ageing_python = 1` (no exclusivity) | 2 |
 | Attention tickets (Python-aligned) | `is_python_attention = 1` | 18 |
 
 Phase A `attention_list` **does not** include ageing-only tickets (`TCK-1006`) or P3/P4 approaching (`TCK-1010`). The action table **does**, so KPI drill-through is not empty.

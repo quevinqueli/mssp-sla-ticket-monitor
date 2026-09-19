@@ -15,6 +15,10 @@ def test_brief_is_plain_markdown_from_verified_numbers():
     assert "Verification: **PASSED" in text
     assert "`response_sla_breach:TCK-1001:SLA-RESPONSE-P1`" in text
     assert "Hours overdue: 1.7500h" in text or "Hours overdue: 1.75h" in text
+    assert "Attention-list rows:" in text
+    assert "Attention-list tickets:" not in text
+    assert "CSV-row grain" in text
+    assert "## Rows requiring attention" in text
     assert "AI section omitted" in text
     # Must not invent business outcomes.
     assert "revenue" not in text.lower()

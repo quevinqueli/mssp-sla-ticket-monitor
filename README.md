@@ -66,8 +66,10 @@ Clock rules:
 - Response starts at `created_at` and stops at `first_response_at`, or at `as_of` if still unanswered.
 - Resolve starts at `created_at` and stops at `resolved_at`, or at `as_of` if the ticket is still open.
 - `waiting_customer` does **not** pause the resolve clock in v1. Findings say so.
-- Approaching: still ticking, not yet breached, and remaining time is in the last 50% of a ≤1h window, or otherwise in `min(2h, 25% of the window)`.
-- Ageing backlog: still open and age ≥ 48 hours, independent of priority SLA.
+- Breach is strict: `clock stop > deadline`. When stop equals the deadline exactly, the ticket is on time — **neither breached nor approaching**. Remaining hours are `0`, which is outside the warn band. v1 has no separate “due now” finding.
+- Approaching: still ticking, not yet breached, remaining hours `> 0`, and remaining time is in the last 50% of a ≤1h window, or otherwise in `min(2h, 25% of the window)`.
+- Ageing backlog: still open and age ≥ 48 hours, independent of priority SLA. Duplicate `ticket_id` rows (`DQ-DUPLICATE-TICKET-ID`) are DQ-only: SLA clocks and ageing are both skipped (canonical row is not guessed).
+- Attention-list counts are **CSV-row grain**, not unique `ticket_id`. The snapshot figure is `len(attention_list)`. A duplicated id (demo `TCK-1020`) produces two attention rows if both CSV lines match a rule.
 
 Missing required fields and inconsistent timelines are flagged. Those rows are excluded from the clocks that need the missing/invalid value.
 

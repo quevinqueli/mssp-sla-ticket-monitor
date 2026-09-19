@@ -444,7 +444,7 @@
             "expression": "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing_python] = 1 )",
             "formatString": "#,0",
             "displayFolder": "Python-aligned",
-            "description": "Open age \u226548h with no exclusion. Matches Python counts.ageing_backlog."
+            "description": "Open age \u226548h with no KPI exclusion. Duplicate ticket_id rows are omitted (DQ-only, matching Phase A). Matches Python counts.ageing_backlog."
           },
           {
             "name": "Attention tickets (Python-aligned)",

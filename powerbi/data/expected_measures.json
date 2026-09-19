@@ -9,7 +9,7 @@
     "open_tickets": 22,
     "breached_slas": 8,
     "approaching_deadlines": 3,
-    "ageing_backlog": 3,
+    "ageing_backlog": 2,
     "attention": 18,
     "data_quality_flags": 10
   },
@@ -17,12 +17,12 @@
     "Open tickets": 22,
     "Breached tickets": 7,
     "Approaching tickets": 3,
-    "Ageing backlog": 2
+    "Ageing backlog": 1
   },
   "python_aligned_measures": {
     "Breached findings (Python-aligned)": 8,
     "Approaching findings (Python-aligned)": 3,
-    "Ageing backlog (Python-aligned)": 3,
+    "Ageing backlog (Python-aligned)": 2,
     "Attention tickets (Python-aligned)": 18,
     "Open tickets (Python-aligned)": 22
   },
@@ -32,9 +32,9 @@
   },
   "action_table_rows": 20,
   "action_table_by_primary_reason": {
-    "Ageing backlog": 2,
+    "Ageing backlog": 1,
     "Approaching deadline": 3,
-    "Data quality": 7,
+    "Data quality": 8,
     "SLA breached (closed P1/P2)": 2,
     "SLA breached (open)": 5,
     "Unassigned": 1
@@ -50,9 +50,9 @@
     },
     {
       "measure": "Ageing backlog",
-      "report_value": 2,
+      "report_value": 1,
       "python_name": "counts.ageing_backlog",
-      "python_value": 3,
+      "python_value": 2,
       "reason": "TCK-1004 is ageing and resolve-breached. The ageing KPI excludes rows already in the breached KPI so the four cards do not double-count the same ticket. Use 'Ageing backlog (Python-aligned)' to match Phase A."
     }
   ],

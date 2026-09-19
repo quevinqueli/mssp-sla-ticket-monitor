@@ -49,7 +49,7 @@ The synthetic files include these on purpose:
 4. **`resolved`/`closed` without `resolved_at`** — resolve SLA skipped (would be guessing the stop time).
 5. **`waiting_customer` without `status_updated_at`** — wait-time attention skipped (would be guessing dwell from `created_at`).
 6. **`first_response_at` or `resolved_at` before `created_at`**, or `resolved_at` before `first_response_at` — timeline inconsistent; affected clocks skipped.
-7. **Duplicate `ticket_id`** — both rows flagged; SLA skipped (canonical row is not guessed).
+7. **Duplicate `ticket_id`** — both rows flagged; SLA skipped (canonical row is not guessed). Ageing is also skipped: those rows are DQ-only.
 8. **Missing `ticket_id`** — labeled `ROW-{n}` for traceability only.
 9. **`waiting_customer` still accrues resolve SLA** — v1 does not pause clocks. The brief says so on those findings.
 
@@ -57,5 +57,7 @@ The synthetic files include these on purpose:
 
 - Response: start `created_at`, stop `first_response_at` or `as_of` if unanswered.
 - Resolve: start `created_at`, stop `resolved_at` or `as_of` if still open.
-- Approaching: still ticking, not yet breached, remaining hours inside the warn band in `sla_rules.py`.
-- Ageing backlog: still open and age ≥ 48 hours, independent of priority SLA.
+- Breach: `stop > deadline` only. **Exact equality is not a breach.** Remaining hours are `0`, so `is_approaching` is also false. The ticket is neither breached nor approaching; v1 does not emit a “due now” finding.
+- Approaching: still ticking, not yet breached, remaining hours `> 0` and inside the warn band in `sla_rules.py`.
+- Ageing backlog: still open and age ≥ 48 hours, independent of priority SLA, except duplicate `ticket_id` rows which stay DQ-only.
+- Attention list: **one finding per matching CSV row**. `counts.attention` is that list length, not a unique-`ticket_id` count. Duplicate ids can therefore appear more than once in the brief.

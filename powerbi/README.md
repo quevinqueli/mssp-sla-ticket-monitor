@@ -20,7 +20,7 @@ Unfiltered report-page KPIs for that snapshot:
 | Open tickets | 22 |
 | Breached tickets | 7 |
 | Approaching tickets | 3 |
-| Ageing backlog | 2 |
+| Ageing backlog | 1 |
 
 Python Phase A list lengths, and the two intentional deltas, are in [RECONCILIATION.md](RECONCILIATION.md).
 

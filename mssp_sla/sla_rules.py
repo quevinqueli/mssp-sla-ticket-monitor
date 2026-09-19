@@ -138,7 +138,12 @@ def approaching_threshold_hours(sla_hours: float) -> float:
 
 
 def is_approaching(remaining_hours: float, sla_hours: float) -> bool:
-    """True when the clock is still inside the window and inside the warn band."""
+    """True when the clock is still inside the window and inside the warn band.
+
+    remaining_hours <= 0 is never approaching. Combined with breach = stop >
+    deadline, a clock that stops exactly on the deadline is neither breached
+    nor approaching (intentional v1 gap; no due-now finding).
+    """
     if remaining_hours <= 0:
         return False
     return remaining_hours <= approaching_threshold_hours(sla_hours)

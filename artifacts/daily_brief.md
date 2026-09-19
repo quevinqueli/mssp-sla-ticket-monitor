@@ -13,11 +13,11 @@
 - Open tickets: **22**
 - SLA breach findings: **8**
 - Approaching-deadline findings: **3**
-- Ageing backlog findings: **3**
-- Attention-list tickets: **18**
+- Ageing backlog findings: **2**
+- Attention-list rows: **18**
 - Data-quality findings: **10**
 
-These counts are list lengths from Phase A. They are not forecasts or risk scores.
+These counts are list lengths from Phase A. They are not forecasts or risk scores. Attention-list rows use CSV-row grain: a repeated ticket_id is one row per matching CSV line.
 
 ## Breached SLAs
 
@@ -241,22 +241,7 @@ These counts are list lengths from Phase A. They are not forecasts or risk score
 - Clock elapsed: 48h
 - Why it qualifies: Ticket is still open and age 48.0h meets or exceeds the 48.0h ageing-backlog threshold. This rule is independent of priority SLA clocks.
 
-### ageing_backlog:TCK-1020:AGEING-BACKLOG-48H
-- Ticket: `TCK-1020`
-- Rule: `AGEING-BACKLOG-48H`
-- Type: ageing_backlog
-- Priority: P4
-- Status: open
-- Customer id (from CSV): `CUST-E`
-- Assigned to (from CSV): `erin`
-- created_at: 2026-09-15T12:00:00+00:00
-- first_response_at: 2026-09-15T13:00:00+00:00
-- Clock stop: 2026-09-19T12:00:00+00:00
-- Age at as_of: 96h
-- Clock elapsed: 96h
-- Why it qualifies: Ticket is still open and age 96.0h meets or exceeds the 48.0h ageing-backlog threshold. This rule is independent of priority SLA clocks.
-
-## Tickets requiring attention
+## Rows requiring attention
 
 ### attention:TCK-1001
 - Ticket: `TCK-1001`
