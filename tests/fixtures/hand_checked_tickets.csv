@@ -1,0 +1,16 @@
+ticket_id,created_at,first_response_at,resolved_at,status_updated_at,priority,status,customer_id,assigned_to,ticket_type,category,summary
+TCK-1001,2026-09-19T10:00:00Z,,,,P1,open,CUST-A,alice,incident,malware,Synthetic P1 still unanswered past 15m response SLA
+TCK-1002,2026-09-19T08:00:00Z,2026-09-19T08:30:00Z,,,P2,in_progress,CUST-B,bob,incident,phishing,Synthetic P2 on track (negative control)
+TCK-1003,2026-09-18T20:00:00Z,2026-09-18T20:10:00Z,2026-09-19T01:00:00Z,,P1,resolved,CUST-A,alice,incident,ransomware,Synthetic P1 resolved 5h after create (4h resolve SLA)
+TCK-1004,2026-09-16T12:00:00Z,2026-09-16T14:00:00Z,,,P3,open,CUST-C,cara,incident,vulnerability,Synthetic P3 open 72h and 48h past resolve SLA
+TCK-1005,2026-09-19T11:15:00Z,,,,P2,open,CUST-B,bob,alert,ids,Synthetic P2 unanswered with 15m left on 1h response SLA
+TCK-1006,2026-09-17T12:00:00Z,2026-09-17T16:00:00Z,,,P4,open,CUST-D,dana,request,hardening,Synthetic P4 open exactly 48h (ageing, not breached)
+TCK-1007,2026-09-19T08:00:00Z,,,,Urgent,open,CUST-A,alice,incident,unknown,Synthetic unknown priority Urgent — do not map to P1
+TCK-1008,,2026-09-19T11:00:00Z,,,P1,open,CUST-B,bob,incident,malware,Synthetic P1 missing created_at
+TCK-1009,2026-09-18T10:00:00Z,2026-09-18T10:20:00Z,,2026-09-18T11:00:00Z,P2,waiting_customer,CUST-C,cara,incident,phishing,Synthetic P2 waiting 25h; resolve clock not paused
+TCK-1010,2026-09-18T14:00:00Z,2026-09-18T16:00:00Z,,,P3,in_progress,CUST-D,dana,alert,ids,Synthetic P3 with 2h left on 24h resolve SLA
+TCK-1011,2026-09-19T08:00:00Z,2026-09-19T08:05:00Z,2026-09-19T10:00:00Z,,P1,closed,CUST-A,alice,incident,malware,Synthetic P1 closed on time (negative control)
+TCK-1012,2026-09-19T09:00:00Z,2026-09-19T11:00:00Z,,,P3,open,CUST-E,,request,access,Synthetic unassigned open P3
+TCK-1013,yesterday morning,,,,P2,open,CUST-B,bob,incident,phishing,Synthetic unparseable created_at
+TCK-1014,2026-09-19T06:00:00Z,2026-09-19T07:00:00Z,2026-09-19T09:00:00Z,,P1,resolved,CUST-A,alice,incident,malware,Synthetic P1 first response 1h after create (15m SLA)
+TCK-1015,2026-09-19T08:30:00Z,2026-09-19T08:35:00Z,,,P1,in_progress,CUST-C,cara,incident,ransomware,Synthetic P1 with 0.5h left on 4h resolve SLA
