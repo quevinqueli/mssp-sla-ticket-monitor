@@ -15,6 +15,7 @@ from mssp_sla.sla_rules import (
     RULE_ATTENTION_OPEN_BREACH,
     RULE_ATTENTION_UNASSIGNED,
     RULE_ATTENTION_WAITING_CUSTOMER,
+    RULE_DQ_DUPLICATE_TICKET_ID,
     WAITING_CUSTOMER_ATTENTION_HOURS,
     is_approaching,
     sla_for_priority,
@@ -70,6 +71,8 @@ def response_clock(ticket: ParsedTicket, as_of: datetime) -> SlaClock | None:
         remaining = -hours_between(deadline, stop)
         overdue = hours_between(deadline, stop)
     elif stop == deadline:
+        # Intentional v1 gap: exact equality is on time, not a breach, and
+        # remaining=0 is outside the approaching warn band (no "due now" finding).
         remaining = 0.0
         overdue = 0.0
     else:
@@ -109,6 +112,7 @@ def resolve_clock(ticket: ParsedTicket, as_of: datetime) -> SlaClock | None:
         remaining = -hours_between(deadline, stop)
         overdue = hours_between(deadline, stop)
     elif stop == deadline:
+        # Same equality hole as response: on time, neither breached nor approaching.
         remaining = 0.0
         overdue = 0.0
     else:
@@ -250,10 +254,21 @@ def compute_approaching_deadlines(tickets: list[ParsedTicket], as_of: datetime) 
     return findings
 
 
+def is_duplicate_ticket_row(ticket: ParsedTicket) -> bool:
+    """True when this CSV row shares a ticket_id with another row.
+
+    Duplicate rows are DQ-only: parse already skips SLA clocks, and ageing
+    must not emit a second finding from the same ambiguous identity.
+    """
+    return any(flag.rule_id == RULE_DQ_DUPLICATE_TICKET_ID for flag in ticket.flags)
+
+
 def compute_ageing_backlog(tickets: list[ParsedTicket], as_of: datetime) -> list[Finding]:
     findings: list[Finding] = []
     for ticket in tickets:
         if not ticket.is_open() or ticket.created_at is None:
+            continue
+        if is_duplicate_ticket_row(ticket):
             continue
         age = hours_between(ticket.created_at, as_of)
         if age < AGEING_BACKLOG_HOURS:
@@ -297,7 +312,11 @@ def compute_attention_list(
     approaching: list[Finding],
     data_quality: list[Finding],
 ) -> list[Finding]:
-    """Unique tickets that match at least one explicit attention rule."""
+    """One attention finding per matching CSV row (not unique ticket_id).
+
+    Duplicate ticket_ids (e.g. TCK-1020) therefore appear twice when both
+    rows match a rule. Snapshot counts.attention is that list length.
+    """
     breached_by_ticket: dict[str, list[Finding]] = {}
     for finding in breached:
         breached_by_ticket.setdefault(finding.ticket_id, []).append(finding)

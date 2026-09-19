@@ -5,7 +5,7 @@
     "as_of = 2026-09-19T12:00:00Z.",
     "P1 response 0.25h / resolve 4h; P2 1h / 8h; P3 4h / 24h; P4 8h / 72h.",
     "Approaching: sla<=1h last 50%; else remaining <= min(2h, 25% of window).",
-    "Ageing: open and age >= 48h. waiting_customer does not pause resolve SLA."
+    "Ageing: open and age >= 48h, except duplicate ticket_id rows which are DQ-only. waiting_customer does not pause resolve SLA."
   ],
   "counts": {
     "total_tickets": 15,

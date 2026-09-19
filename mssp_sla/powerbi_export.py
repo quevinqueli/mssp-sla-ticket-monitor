@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from mssp_sla.compute import (
+    is_duplicate_ticket_row,
     resolve_clock,
     response_clock,
 )
@@ -182,6 +183,8 @@ def _clock_choice_for_approaching(response, resolve):
 
 def _ageing_hours(ticket: ParsedTicket, as_of: datetime) -> float | None:
     if not ticket.is_open() or ticket.created_at is None:
+        return None
+    if is_duplicate_ticket_row(ticket):
         return None
     age = hours_between(ticket.created_at, as_of)
     if age < AGEING_BACKLOG_HOURS:
@@ -902,7 +905,10 @@ DAX_MEASURES: list[dict[str, str]] = [
         "dax": (
             "CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing_python] = 1 )"
         ),
-        "comment": "Open age ≥48h with no exclusion. Matches Python counts.ageing_backlog.",
+        "comment": (
+            "Open age ≥48h with no KPI exclusion. Duplicate ticket_id rows are omitted "
+            "(DQ-only, matching Phase A). Matches Python counts.ageing_backlog."
+        ),
     },
     {
         "name": "Attention tickets (Python-aligned)",

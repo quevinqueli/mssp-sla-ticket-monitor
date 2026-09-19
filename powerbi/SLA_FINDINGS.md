@@ -36,7 +36,7 @@ The attention report question is about tickets. KPI **Breached tickets** = 7. Py
 
 ### 2. Overlapping ageing and breach
 
-`TCK-1004` is in both `ageing_backlog` and `breached_slas`. Python counts both lists independently. The report ageing KPI **excludes** rows already in the breached KPI so the cards do not double-count. Python-aligned ageing remains 3.
+`TCK-1004` is in both `ageing_backlog` and `breached_slas`. Python counts both lists independently. The report ageing KPI **excludes** rows already in the breached KPI so the cards do not double-count. Python-aligned ageing is 2 (TCK-1004 and TCK-1006).
 
 Approaching is already disjoint from the same clock being breached (`is_approaching` is false when remaining ≤ 0). Demo `breach ∩ approaching = ∅`.
 
@@ -54,7 +54,7 @@ The Approaching KPI follows the **finding** list (includes P3), not the attentio
 
 ### 5. Duplicate `ticket_id` vs ageing
 
-Duplicates are not SLA-eligible (canonical row is not guessed). Ageing does **not** consult `sla_eligible`. First `TCK-1020` row is 96h open → ageing; second row is 2h open → not ageing. Both rows are on the attention list for `DQ-DUPLICATE-TICKET-ID`. Grain for the model is **CSV row**, matching Python’s `row_count` / `open_tickets`.
+Duplicates are not SLA-eligible (canonical row is not guessed). Ageing also skips `DQ-DUPLICATE-TICKET-ID` rows (DQ-only; canonical age is not guessed). Both `TCK-1020` rows stay on the attention list for the duplicate flag. Grain for the model is **CSV row**, matching Python’s `row_count` / `open_tickets` / `counts.attention`.
 
 ### 6. Exact deadline is a hole
 

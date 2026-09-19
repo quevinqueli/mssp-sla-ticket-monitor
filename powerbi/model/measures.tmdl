@@ -34,7 +34,7 @@ measure 'Approaching findings (Python-aligned)' = CALCULATE ( COUNTROWS ( 'fact_
 measure 'Ageing backlog (Python-aligned)' = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing_python] = 1 )
 	formatString: #,0
 	displayFolder: Python-aligned
-		/// Open age ≥48h with no exclusion. Matches Python counts.ageing_backlog.
+		/// Open age ≥48h with no KPI exclusion. Duplicate ticket_id rows are omitted (DQ-only, matching Phase A). Matches Python counts.ageing_backlog.
 
 measure 'Attention tickets (Python-aligned)' = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[is_python_attention] = 1 )
 	formatString: #,0

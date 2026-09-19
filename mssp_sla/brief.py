@@ -93,10 +93,13 @@ def render_brief(report: MetricsReport, ai_section: str | None = None) -> str:
         f"- SLA breach findings: **{report.counts.get('breached_slas', 0)}**",
         f"- Approaching-deadline findings: **{report.counts.get('approaching_deadlines', 0)}**",
         f"- Ageing backlog findings: **{report.counts.get('ageing_backlog', 0)}**",
-        f"- Attention-list tickets: **{report.counts.get('attention', 0)}**",
+        f"- Attention-list rows: **{report.counts.get('attention', 0)}**",
         f"- Data-quality findings: **{report.counts.get('data_quality_flags', 0)}**",
         "",
-        "These counts are list lengths from Phase A. They are not forecasts or risk scores.",
+        (
+            "These counts are list lengths from Phase A. They are not forecasts or risk scores. "
+            "Attention-list rows use CSV-row grain: a repeated ticket_id is one row per matching CSV line."
+        ),
         "",
     ]
 
@@ -134,9 +137,9 @@ def render_brief(report: MetricsReport, ai_section: str | None = None) -> str:
     )
     lines.extend(
         _section(
-            "Tickets requiring attention",
+            "Rows requiring attention",
             report.attention_list,
-            "_No tickets matched an explicit attention rule._",
+            "_No rows matched an explicit attention rule._",
         )
     )
     lines.extend(

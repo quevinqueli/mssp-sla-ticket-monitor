@@ -20,7 +20,7 @@ Breached findings (Python-aligned) = CALCULATE ( COUNTROWS ( 'fact_finding' ), '
 // Python-aligned: List length of Phase A approaching_deadlines.
 Approaching findings (Python-aligned) = CALCULATE ( COUNTROWS ( 'fact_finding' ), 'fact_finding'[finding_type] IN { "approaching_response", "approaching_resolve" } )
 
-// Python-aligned: Open age ≥48h with no exclusion. Matches Python counts.ageing_backlog.
+// Python-aligned: Open age ≥48h with no KPI exclusion. Duplicate ticket_id rows are omitted (DQ-only, matching Phase A). Matches Python counts.ageing_backlog.
 Ageing backlog (Python-aligned) = CALCULATE ( COUNTROWS ( 'fact_ticket' ), 'fact_ticket'[kpi_ageing_python] = 1 )
 
 // Python-aligned: Rows that appear on Phase A attention_list. Ageing-only and P3/P4 approaching tickets can be on the report table without this flag.

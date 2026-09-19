@@ -34,17 +34,17 @@ def test_demo_kpis_match_documented_snapshot():
     assert report.counts["open_tickets"] == 22
     assert report.counts["breached_slas"] == 8
     assert report.counts["approaching_deadlines"] == 3
-    assert report.counts["ageing_backlog"] == 3
+    assert report.counts["ageing_backlog"] == 2
     assert report.counts["attention"] == 18
 
     assert page["Open tickets"] == 22
     assert page["Breached tickets"] == 7
     assert page["Approaching tickets"] == 3
-    assert page["Ageing backlog"] == 2
+    assert page["Ageing backlog"] == 1
 
     assert aligned["Breached findings (Python-aligned)"] == 8
     assert aligned["Approaching findings (Python-aligned)"] == 3
-    assert aligned["Ageing backlog (Python-aligned)"] == 3
+    assert aligned["Ageing backlog (Python-aligned)"] == 2
     assert aligned["Attention tickets (Python-aligned)"] == 18
     assert aligned["Open tickets (Python-aligned)"] == 22
 
@@ -70,6 +70,20 @@ def test_tck_1021_is_one_breached_ticket_not_two():
     assert rows[0]["response_breached"] == 1
     assert rows[0]["resolve_breached"] == 1
     assert rows[0]["kpi_breached"] == 1
+
+
+def test_tck_1020_duplicates_are_dq_only_not_ageing():
+    model, _report = _model()
+    rows = [row for row in model["fact_ticket"] if row["ticket_id"] == "TCK-1020"]
+    assert len(rows) == 2
+    for row in rows:
+        assert row["is_ageing"] == 0
+        assert row["kpi_ageing"] == 0
+        assert row["kpi_ageing_python"] == 0
+        assert row["is_python_attention"] == 1
+        assert row["primary_reason_key"] == "DATA_QUALITY"
+        assert "DQ-DUPLICATE-TICKET-ID" in row["dq_rule_ids"]
+
 
 
 def test_ageing_only_and_p3_approaching_still_reach_the_table():
@@ -113,7 +127,7 @@ def test_fact_ticket_row_count_matches_python_total():
     model, report = _model()
     assert len(model["fact_ticket"]) == report.counts["total_tickets"] == 27
     assert sum(int(row["kpi_open"]) for row in model["fact_ticket"]) == 22
-    assert len(model["fact_finding"]) == len(report.all_findings()) == 42
+    assert len(model["fact_finding"]) == len(report.all_findings()) == 41
 
 
 def test_documented_slicer_smoke_numbers():

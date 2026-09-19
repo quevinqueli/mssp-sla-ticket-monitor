@@ -168,7 +168,7 @@ After apply, with all slicers cleared:
 | Open tickets | **22** |
 | Breached tickets | **7** |
 | Approaching tickets | **3** |
-| Ageing backlog | **2** |
+| Ageing backlog | **1** |
 | Bar | CUST-A **4**, CUST-C **3** |
 | Table rows | **20** |
 | As of | **19 Sep 2026 12:00 UTC** |
@@ -189,7 +189,7 @@ Python-aligned measures (optional, keep off the page or in a tooltip):
 | Measure | Expected |
 | --- | ---: |
 | Breached findings (Python-aligned) | 8 |
-| Ageing backlog (Python-aligned) | 3 |
+| Ageing backlog (Python-aligned) | 2 |
 | Attention tickets (Python-aligned) | 18 |
 
 ## 8. What you must still do locally

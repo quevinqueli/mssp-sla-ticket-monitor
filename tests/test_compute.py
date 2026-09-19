@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from pathlib import Path
 
 from mssp_sla.compute import (
     compute_ageing_backlog,
@@ -7,8 +8,8 @@ from mssp_sla.compute import (
     resolve_clock,
     response_clock,
 )
-from mssp_sla.parse import parse_row
-from mssp_sla.sla_rules import AGEING_BACKLOG_HOURS
+from mssp_sla.parse import load_tickets, parse_row
+from mssp_sla.sla_rules import AGEING_BACKLOG_HOURS, RULE_DQ_DUPLICATE_TICKET_ID
 
 AS_OF = datetime(2026, 9, 19, 12, 0, 0, tzinfo=timezone.utc)
 
@@ -100,3 +101,39 @@ def test_ageing_backlog_is_independent_of_sla():
     assert ageing[0].computed_age_hours == AGEING_BACKLOG_HOURS
     # Resolve SLA for P4 is 72h, so this 48h ticket is ageing but not resolve-breached.
     assert compute_breached_slas([ticket], AS_OF) == []
+
+
+def test_duplicate_ticket_id_skips_ageing_and_sla(tmp_path):
+    # Hand-checked: two open rows share TCK-DUP. First row is 96h old (would
+    # otherwise age). Duplicate flag makes both rows DQ-only.
+    csv_path = Path(tmp_path) / "duplicates.csv"
+    csv_path.write_text(
+        "ticket_id,created_at,first_response_at,resolved_at,status_updated_at,"
+        "priority,status,customer_id,assigned_to,ticket_type,category,summary\n"
+        "TCK-DUP,2026-09-15T12:00:00Z,2026-09-15T13:00:00Z,,,P4,open,CUST-X,alex,"
+        "request,logging,Synthetic duplicate 96h row\n"
+        "TCK-DUP,2026-09-19T10:00:00Z,,,,P4,open,CUST-X,alex,"
+        "request,logging,Synthetic duplicate 2h row\n",
+        encoding="utf-8",
+    )
+    tickets, _ = load_tickets(csv_path)
+    assert len(tickets) == 2
+    assert all(
+        any(flag.rule_id == RULE_DQ_DUPLICATE_TICKET_ID for flag in ticket.flags)
+        for ticket in tickets
+    )
+    assert all(ticket.sla_eligible is False for ticket in tickets)
+    assert compute_breached_slas(tickets, AS_OF) == []
+    assert compute_ageing_backlog(tickets, AS_OF) == []
+
+
+def test_clock_stop_equal_to_deadline_is_neither_breached_nor_approaching():
+    # P2 response window is 1h; unanswered as_of lands exactly on the deadline.
+    ticket = _ticket(created_at="2026-09-19T11:00:00Z", priority="P2")
+    clock = response_clock(ticket, AS_OF)
+    assert clock is not None
+    assert clock.breached is False
+    assert clock.remaining_hours == 0.0
+    assert clock.still_ticking is True
+    assert compute_breached_slas([ticket], AS_OF) == []
+    assert compute_approaching_deadlines([ticket], AS_OF) == []
