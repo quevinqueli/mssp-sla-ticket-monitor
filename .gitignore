@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Power BI Desktop binaries (this repo ships CSV/DAX/theme; assemble .pbix locally)
+*.pbix
+*.pbit

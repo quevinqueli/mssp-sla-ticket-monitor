@@ -1,0 +1,7 @@
+status_key,status_label,status_group,is_open_status,is_closed_status
+in_progress,in_progress,Open,1,0
+investigating,investigating,Open,1,0
+open,open,Open,1,0
+waiting_customer,waiting_customer,Open,1,0
+closed,closed,Closed,0,1
+resolved,resolved,Closed,0,1

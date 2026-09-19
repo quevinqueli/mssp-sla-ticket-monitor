@@ -1,0 +1,9 @@
+reason_key,reason_label,reason_sort,status_color,is_kpi_bucket
+BREACHED_OPEN,SLA breached (open),1,#B42318,1
+BREACHED_CLOSED,SLA breached (closed P1/P2),2,#B42318,1
+APPROACHING,Approaching deadline,3,#B54708,1
+AGEING,Ageing backlog,4,#175CD3,1
+WAITING,Waiting on customer,5,#B54708,0
+UNASSIGNED,Unassigned,6,#344054,0
+DATA_QUALITY,Data quality,7,#667085,0
+NONE,(none),99,#D0D5DD,0

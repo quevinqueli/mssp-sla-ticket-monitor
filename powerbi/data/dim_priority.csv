@@ -1,0 +1,6 @@
+priority_key,priority_label,priority_sort,response_hours,resolve_hours,aliases,in_catalog
+P1,P1,1,0.25,4.0,Critical|P1,1
+P2,P2,2,1.0,8.0,High|P2,1
+P3,P3,3,4.0,24.0,P3|medium,1
+P4,P4,4,8.0,72.0,Low|P4,1
+UNKNOWN,Unknown,99,,,P5|Urgent,0
