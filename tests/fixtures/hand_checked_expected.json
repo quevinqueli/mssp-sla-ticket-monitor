@@ -1,0 +1,219 @@
+{
+  "hand_checked_as_of": "2026-09-19T12:00:00+00:00",
+  "notes": [
+    "Every numeric field below was computed from the fixture CSV + SLA catalog v1 before trusting the code.",
+    "as_of = 2026-09-19T12:00:00Z.",
+    "P1 response 0.25h / resolve 4h; P2 1h / 8h; P3 4h / 24h; P4 8h / 72h.",
+    "Approaching: sla<=1h last 50%; else remaining <= min(2h, 25% of window).",
+    "Ageing: open and age >= 48h. waiting_customer does not pause resolve SLA."
+  ],
+  "counts": {
+    "total_tickets": 15,
+    "sla_eligible": 12,
+    "open_tickets": 12,
+    "breached_slas": 5,
+    "approaching_deadlines": 3,
+    "ageing_backlog": 2,
+    "attention": 11,
+    "data_quality_flags": 3
+  },
+  "negative_controls": ["TCK-1002", "TCK-1011"],
+  "findings": [
+    {
+      "evidence_id": "response_sla_breach:TCK-1001:SLA-RESPONSE-P1",
+      "ticket_id": "TCK-1001",
+      "finding_type": "response_sla_breach",
+      "rule_id": "SLA-RESPONSE-P1",
+      "computed_deadline": "2026-09-19T10:15:00+00:00",
+      "computed_age_hours": 2.0,
+      "clock_elapsed_hours": 2.0,
+      "hours_overdue": 1.75,
+      "hours_remaining": 0.0,
+      "clock_stop_at": "2026-09-19T12:00:00+00:00"
+    },
+    {
+      "evidence_id": "attention:TCK-1001",
+      "ticket_id": "TCK-1001",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-OPEN-BREACH",
+      "reason_rule_ids": ["ATTENTION-OPEN-BREACH"],
+      "source_evidence_ids": ["response_sla_breach:TCK-1001:SLA-RESPONSE-P1"]
+    },
+    {
+      "evidence_id": "resolve_sla_breach:TCK-1003:SLA-RESOLVE-P1",
+      "ticket_id": "TCK-1003",
+      "finding_type": "resolve_sla_breach",
+      "rule_id": "SLA-RESOLVE-P1",
+      "computed_deadline": "2026-09-19T00:00:00+00:00",
+      "computed_age_hours": 16.0,
+      "clock_elapsed_hours": 5.0,
+      "hours_overdue": 1.0,
+      "hours_remaining": 0.0,
+      "clock_stop_at": "2026-09-19T01:00:00+00:00"
+    },
+    {
+      "evidence_id": "attention:TCK-1003",
+      "ticket_id": "TCK-1003",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-P1P2-CLOSED-BREACH",
+      "reason_rule_ids": ["ATTENTION-P1P2-CLOSED-BREACH"]
+    },
+    {
+      "evidence_id": "resolve_sla_breach:TCK-1004:SLA-RESOLVE-P3",
+      "ticket_id": "TCK-1004",
+      "finding_type": "resolve_sla_breach",
+      "rule_id": "SLA-RESOLVE-P3",
+      "computed_deadline": "2026-09-17T12:00:00+00:00",
+      "computed_age_hours": 72.0,
+      "clock_elapsed_hours": 72.0,
+      "hours_overdue": 48.0,
+      "hours_remaining": 0.0,
+      "clock_stop_at": "2026-09-19T12:00:00+00:00"
+    },
+    {
+      "evidence_id": "ageing_backlog:TCK-1004:AGEING-BACKLOG-48H",
+      "ticket_id": "TCK-1004",
+      "finding_type": "ageing_backlog",
+      "rule_id": "AGEING-BACKLOG-48H",
+      "computed_age_hours": 72.0,
+      "hours_overdue": 24.0
+    },
+    {
+      "evidence_id": "attention:TCK-1004",
+      "ticket_id": "TCK-1004",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-OPEN-BREACH"
+    },
+    {
+      "evidence_id": "approaching_response:TCK-1005:SLA-RESPONSE-P2",
+      "ticket_id": "TCK-1005",
+      "finding_type": "approaching_response",
+      "rule_id": "SLA-RESPONSE-P2",
+      "computed_deadline": "2026-09-19T12:15:00+00:00",
+      "computed_age_hours": 0.75,
+      "clock_elapsed_hours": 0.75,
+      "hours_overdue": 0.0,
+      "hours_remaining": 0.25,
+      "clock_stop_at": "2026-09-19T12:00:00+00:00"
+    },
+    {
+      "evidence_id": "attention:TCK-1005",
+      "ticket_id": "TCK-1005",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-APPROACHING-P1P2"
+    },
+    {
+      "evidence_id": "ageing_backlog:TCK-1006:AGEING-BACKLOG-48H",
+      "ticket_id": "TCK-1006",
+      "finding_type": "ageing_backlog",
+      "rule_id": "AGEING-BACKLOG-48H",
+      "computed_age_hours": 48.0,
+      "hours_overdue": 0.0
+    },
+    {
+      "evidence_id": "dq:TCK-1007:DQ-UNKNOWN-PRIORITY",
+      "ticket_id": "TCK-1007",
+      "finding_type": "data_quality",
+      "rule_id": "DQ-UNKNOWN-PRIORITY"
+    },
+    {
+      "evidence_id": "attention:TCK-1007",
+      "ticket_id": "TCK-1007",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-DATA-QUALITY"
+    },
+    {
+      "evidence_id": "dq:TCK-1008:DQ-MISSING-CREATED-AT",
+      "ticket_id": "TCK-1008",
+      "finding_type": "data_quality",
+      "rule_id": "DQ-MISSING-CREATED-AT"
+    },
+    {
+      "evidence_id": "attention:TCK-1008",
+      "ticket_id": "TCK-1008",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-DATA-QUALITY"
+    },
+    {
+      "evidence_id": "resolve_sla_breach:TCK-1009:SLA-RESOLVE-P2",
+      "ticket_id": "TCK-1009",
+      "finding_type": "resolve_sla_breach",
+      "rule_id": "SLA-RESOLVE-P2",
+      "computed_deadline": "2026-09-18T18:00:00+00:00",
+      "computed_age_hours": 26.0,
+      "clock_elapsed_hours": 26.0,
+      "hours_overdue": 18.0,
+      "hours_remaining": 0.0,
+      "clock_stop_at": "2026-09-19T12:00:00+00:00"
+    },
+    {
+      "evidence_id": "attention:TCK-1009",
+      "ticket_id": "TCK-1009",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-OPEN-BREACH",
+      "reason_rule_ids": ["ATTENTION-OPEN-BREACH", "ATTENTION-WAITING-CUSTOMER"]
+    },
+    {
+      "evidence_id": "approaching_resolve:TCK-1010:SLA-RESOLVE-P3",
+      "ticket_id": "TCK-1010",
+      "finding_type": "approaching_resolve",
+      "rule_id": "SLA-RESOLVE-P3",
+      "computed_deadline": "2026-09-19T14:00:00+00:00",
+      "computed_age_hours": 22.0,
+      "hours_remaining": 2.0,
+      "hours_overdue": 0.0
+    },
+    {
+      "evidence_id": "attention:TCK-1012",
+      "ticket_id": "TCK-1012",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-UNASSIGNED"
+    },
+    {
+      "evidence_id": "dq:TCK-1013:DQ-AMBIGUOUS-TIMESTAMP",
+      "ticket_id": "TCK-1013",
+      "finding_type": "data_quality",
+      "rule_id": "DQ-AMBIGUOUS-TIMESTAMP"
+    },
+    {
+      "evidence_id": "attention:TCK-1013",
+      "ticket_id": "TCK-1013",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-DATA-QUALITY"
+    },
+    {
+      "evidence_id": "response_sla_breach:TCK-1014:SLA-RESPONSE-P1",
+      "ticket_id": "TCK-1014",
+      "finding_type": "response_sla_breach",
+      "rule_id": "SLA-RESPONSE-P1",
+      "computed_deadline": "2026-09-19T06:15:00+00:00",
+      "computed_age_hours": 6.0,
+      "clock_elapsed_hours": 1.0,
+      "hours_overdue": 0.75,
+      "hours_remaining": 0.0,
+      "clock_stop_at": "2026-09-19T07:00:00+00:00"
+    },
+    {
+      "evidence_id": "attention:TCK-1014",
+      "ticket_id": "TCK-1014",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-P1P2-CLOSED-BREACH"
+    },
+    {
+      "evidence_id": "approaching_resolve:TCK-1015:SLA-RESOLVE-P1",
+      "ticket_id": "TCK-1015",
+      "finding_type": "approaching_resolve",
+      "rule_id": "SLA-RESOLVE-P1",
+      "computed_deadline": "2026-09-19T12:30:00+00:00",
+      "computed_age_hours": 3.5,
+      "hours_remaining": 0.5,
+      "hours_overdue": 0.0
+    },
+    {
+      "evidence_id": "attention:TCK-1015",
+      "ticket_id": "TCK-1015",
+      "finding_type": "attention",
+      "rule_id": "ATTENTION-APPROACHING-P1P2"
+    }
+  ]
+}
