@@ -1,0 +1,7 @@
+﻿status_key,status_class,is_open,sort_order,synthetic_flag
+open,open,1,0,1
+in_progress,open,1,1,1
+investigating,open,1,2,1
+waiting_customer,open,1,4,1
+resolved,closed,0,5,1
+closed,closed,0,6,1

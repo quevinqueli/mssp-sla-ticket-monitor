@@ -1,0 +1,166 @@
+-- MSSP SLA ticket monitor — Power BI measures
+-- Paste into Desktop after the star schema relationships exist (see DESKTOP_SETUP.md).
+--
+-- HARD RULES
+-- 1. Ticket-level KPIs that sit on findings MUST use DISTINCTCOUNT of ticket_id.
+--    TCK-1021 has two sla_breach findings; COUNTROWS would show 8, DISTINCTCOUNT shows 7.
+-- 2. Do NOT add time intelligence (DATEADD, SAMEPERIODLASTYEAR, TOTALYTD, DATESINPERIOD,
+--    running totals across days, "vs yesterday"). This model is one snapshot.
+-- 3. Do NOT invent metrics, client names, or historical dates.
+-- 4. Flag columns are 1/0 whole numbers. Timestamp columns should stay Text or
+--    Date/Time/Timezone — never timezone-naive Date/Time.
+--
+-- Suggested home table: a disconnected table named _Measures (Enter Data, one dummy column).
+-- Display folder: MSSP SLA.
+
+-- =============================================================================
+-- Snapshot labels (disconnected SnapshotMeta)
+-- =============================================================================
+
+Synthetic Banner =
+IF (
+    SELECTEDVALUE ( SnapshotMeta[synthetic_flag] ) = 1,
+    "SYNTHETIC DATA",
+    "DATA ORIGIN NOT MARKED SYNTHETIC"
+)
+
+As Of Label =
+"as_of " & SELECTEDVALUE ( SnapshotMeta[as_of], "(SnapshotMeta missing)" )
+
+Verification Label =
+IF (
+    SELECTEDVALUE ( SnapshotMeta[verification_passed] ) = 1,
+    "Phase A verification: PASSED",
+    "Phase A verification: FAILED"
+)
+
+Catalog Label =
+"SLA catalog " & SELECTEDVALUE ( SnapshotMeta[sla_catalog_version], "?" )
+
+Source Csv Label =
+SELECTEDVALUE ( SnapshotMeta[source_csv], "" )
+
+-- =============================================================================
+-- Open tickets — Python counts.open_tickets is PARSED-ROW grain
+-- =============================================================================
+
+-- Card value that must equal Python counts.open_tickets (unfiltered: 22)
+Open Tickets =
+CALCULATE (
+    COUNTROWS ( DimTicket ),
+    DimTicket[is_open] = 1
+) + 0
+
+-- Distinct ticket_id among open rows (unfiltered: 21 because TCK-1020 is two rows)
+Open Ticket IDs =
+CALCULATE (
+    DISTINCTCOUNT ( DimTicket[ticket_id] ),
+    DimTicket[is_open] = 1
+) + 0
+
+Open Tickets Grain Note =
+"Grain: parsed CSV rows (Python open_tickets = "
+    & FORMAT ( [Open Tickets], "0" )
+    & "). Distinct ticket_id = "
+    & FORMAT ( [Open Ticket IDs], "0" )
+    & "."
+
+-- =============================================================================
+-- Breached SLAs — Python counts.breached_slas is FINDING grain
+-- =============================================================================
+
+-- Card value that must equal Python counts.breached_slas (unfiltered: 8)
+Breached SLAs (findings) =
+CALCULATE (
+    COUNTROWS ( FactFindings ),
+    FactFindings[finding_family] = "sla_breach"
+) + 0
+
+-- Ticket-level KPI: distinct ticket_id with ≥1 breach finding (unfiltered: 7)
+Breached Tickets =
+CALCULATE (
+    DISTINCTCOUNT ( FactFindings[ticket_id] ),
+    FactFindings[finding_family] = "sla_breach"
+) + 0
+
+Breached SLAs Grain Note =
+"Finding-grain: "
+    & FORMAT ( [Breached SLAs (findings)], "0" )
+    & " (Python breached_slas). Distinct tickets: "
+    & FORMAT ( [Breached Tickets], "0" )
+    & "."
+
+-- =============================================================================
+-- Approaching deadlines — Python counts.approaching_deadlines is FINDING grain
+-- =============================================================================
+
+Approaching Deadlines (findings) =
+CALCULATE (
+    COUNTROWS ( FactFindings ),
+    FactFindings[finding_family] = "approaching"
+) + 0
+
+Approaching Tickets =
+CALCULATE (
+    DISTINCTCOUNT ( FactFindings[ticket_id] ),
+    FactFindings[finding_family] = "approaching"
+) + 0
+
+Approaching Grain Note =
+"Finding-grain: "
+    & FORMAT ( [Approaching Deadlines (findings)], "0" )
+    & " (Python approaching_deadlines). Distinct tickets: "
+    & FORMAT ( [Approaching Tickets], "0" )
+    & "."
+
+-- =============================================================================
+-- Ageing backlog — Python counts.ageing_backlog is FINDING grain
+-- =============================================================================
+
+Ageing Backlog (findings) =
+CALCULATE (
+    COUNTROWS ( FactFindings ),
+    FactFindings[finding_family] = "ageing_backlog"
+) + 0
+
+Ageing Tickets =
+CALCULATE (
+    DISTINCTCOUNT ( FactFindings[ticket_id] ),
+    FactFindings[finding_family] = "ageing_backlog"
+) + 0
+
+Ageing Grain Note =
+"Finding-grain: "
+    & FORMAT ( [Ageing Backlog (findings)], "0" )
+    & " (Python ageing_backlog). Distinct tickets: "
+    & FORMAT ( [Ageing Tickets], "0" )
+    & "."
+
+-- =============================================================================
+-- Attention list — Python counts.attention is evidence-row grain (table grain)
+-- =============================================================================
+
+Attention Rows =
+COUNTROWS ( FactAttention ) + 0
+
+Attention Ticket IDs =
+DISTINCTCOUNT ( FactAttention[ticket_id] ) + 0
+
+-- =============================================================================
+-- Supporting counts (optional; useful while validating)
+-- =============================================================================
+
+Total Tickets (rows) =
+COUNTROWS ( DimTicket ) + 0
+
+SLA Eligible (rows) =
+CALCULATE (
+    COUNTROWS ( DimTicket ),
+    DimTicket[sla_eligible] = 1
+) + 0
+
+Data Quality Flags (findings) =
+CALCULATE (
+    COUNTROWS ( FactFindings ),
+    FactFindings[finding_family] = "data_quality"
+) + 0

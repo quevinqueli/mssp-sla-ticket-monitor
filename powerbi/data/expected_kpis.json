@@ -1,0 +1,46 @@
+{
+  "as_of": "2026-09-19T12:00:00+00:00",
+  "source_csv": "data/synthetic_tickets.csv",
+  "synthetic_flag": true,
+  "verification_passed": true,
+  "python_counts": {
+    "total_tickets": 27,
+    "sla_eligible": 19,
+    "open_tickets": 22,
+    "breached_slas": 8,
+    "approaching_deadlines": 3,
+    "ageing_backlog": 3,
+    "attention": 18,
+    "data_quality_flags": 10
+  },
+  "dashboard_unfiltered": {
+    "open_tickets_row_grain": 22,
+    "open_ticket_ids_distinct": 21,
+    "total_tickets_row_grain": 27,
+    "sla_eligible_row_grain": 19,
+    "breached_slas_finding_grain": 8,
+    "breached_tickets_distinct": 7,
+    "approaching_deadlines_finding_grain": 3,
+    "approaching_tickets_distinct": 3,
+    "ageing_backlog_finding_grain": 3,
+    "ageing_tickets_distinct": 3,
+    "attention_row_grain": 18,
+    "attention_ticket_ids_distinct": 17,
+    "data_quality_flags_finding_grain": 10
+  },
+  "breached_tickets_by_client": {
+    "CUST-A": 4,
+    "CUST-C": 3
+  },
+  "slicer_client_CUST_C": {
+    "open_tickets_row_grain": 5,
+    "breached_slas_finding_grain": 4,
+    "breached_tickets_distinct": 3,
+    "attention_row_grain": 5
+  },
+  "grain_notes": {
+    "open_tickets": "Python counts.open_tickets is parsed-row grain (DimTicket rows with is_open=1), not DISTINCTCOUNT of ticket_id. Duplicate ticket_id values are two DimTicket rows.",
+    "breached_slas": "Python counts.breached_slas is finding-grain. A ticket with both a response and a resolve breach (TCK-1021) counts twice as findings and once as a distinct ticket.",
+    "attention": "Python counts.attention is one row per attention evidence_id. Duplicate ticket_id TCK-1020 has two attention rows."
+  }
+}

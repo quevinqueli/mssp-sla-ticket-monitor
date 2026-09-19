@@ -1,0 +1,7 @@
+﻿priority_key,priority_normalized,in_sla_catalog,response_hours,resolve_hours,sort_order,synthetic_flag
+P1,P1,1,0.25,4.0,1,1
+P2,P2,1,1.0,8.0,2,1
+P3,P3,1,4.0,24.0,3,1
+P4,P4,1,8.0,72.0,4,1
+P5,,0,,,95,1
+Urgent,,0,,,96,1

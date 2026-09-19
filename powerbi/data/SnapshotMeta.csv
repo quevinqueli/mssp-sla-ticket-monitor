@@ -1,0 +1,2 @@
+﻿snapshot_id,as_of,source_csv,sla_catalog_version,synthetic_flag,verification_passed,generated_at,row_count,eligible_for_sla,source_note
+DEMO-2026-09-19T12:00:00+00:00,2026-09-19T12:00:00+00:00,data/synthetic_tickets.csv,v1,1,1,2026-09-19T12:00:00+00:00,27,19,Built from the same Phase A pipeline as artifacts/metrics.json. All rows are synthetic. Do not treat customer_id values as real orgs.

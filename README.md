@@ -40,6 +40,18 @@ This writes:
 
 The demo CSV is synthetic. The frozen `as_of` instant is `2026-09-19T12:00:00Z` so the sample brief is reproducible.
 
+## Power BI demo
+
+Additive spec + star-schema CSVs for a **single snapshot page** in Power BI Desktop. This does not change the Python CLI, `artifacts/`, or Phase A metrics.
+
+```bash
+python3 scripts/export_powerbi.py
+```
+
+Writes `powerbi/data/*.csv` from the same pipeline and frozen `as_of` as the command above. Start at [powerbi/README.md](powerbi/README.md). Quévin builds the live `.pbix` on Windows using [powerbi/DESKTOP_SETUP.md](powerbi/DESKTOP_SETUP.md) — this repo cannot ship a validated Desktop file from Linux.
+
+Unfiltered cards must match `artifacts/metrics.json`: open tickets **22** (parsed rows), breached SLAs **8** (findings; **7** distinct tickets), approaching **3**, ageing **3**. Ticket-level visuals use `DISTINCTCOUNT` so `TCK-1021` (response + resolve breach) is not counted twice.
+
 ## Tests
 
 ```bash
@@ -97,7 +109,9 @@ mssp_sla/          Phase A compute + verification + optional Phase B
 data/              Schema docs + synthetic demo CSV
 tests/             Unit tests + hand-checked fixtures
 scripts/run_demo.py
+scripts/export_powerbi.py
 artifacts/         Demo output (metrics JSON + markdown brief)
+powerbi/           Star-schema CSVs, DAX, layout, Desktop steps (no .pbix)
 ```
 
 ## What this tool will not do

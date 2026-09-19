@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Power BI Desktop binaries (authored locally on Windows; not validated in CI)
+*.pbix
+*.pbit
